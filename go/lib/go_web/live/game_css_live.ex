@@ -1,4 +1,4 @@
-defmodule GoWeb.GameLive do
+defmodule GoWeb.GameCssLive do
   use GoWeb, :live_view
 
   @impl true

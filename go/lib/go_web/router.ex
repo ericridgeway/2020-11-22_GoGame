@@ -18,7 +18,8 @@ defmodule GoWeb.Router do
     pipe_through :browser
 
     # live "/", PageLive, :index
-    live "/", GameCssLive, :index
+    live "/", GamePhaserLive, :index
+    live "/css", GameCssLive, :index
   end
 
   # Other scopes may use custom stacks.

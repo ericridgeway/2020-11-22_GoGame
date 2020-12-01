@@ -18,9 +18,10 @@ import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
 
 let Hooks = {}
-Hooks.Cool = {
+Hooks.PushEvent = {
   mounted() {
     // console.log("Got this far")
+    window.pushEventHook = this
   }
 }
 

@@ -8,8 +8,9 @@ defmodule GoWeb.GamePhaserLive do
 
   @impl true
   def handle_event("decrement", values, socket) do
-    IO.puts ""; require InspectVars; InspectVars.inspect([values])
-    {:noreply, socket |> assign(:live_todo, "new")}
+    # IO.puts ""; require InspectVars; InspectVars.inspect([values])
+    # push_event(socket, "phxEventToJS", %{bark: "woof"})
+    {:noreply, socket |> assign(:live_todo, "new") |> push_event("phxEventToJS", %{bark: "woof"})}
   end
 
 

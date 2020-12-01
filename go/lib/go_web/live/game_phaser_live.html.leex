@@ -14,6 +14,7 @@ function myFunction() {
 </script>
 
 <script id="game" phx-hook="PushEvent">
+
 var config = {
     type: Phaser.AUTO,
     width: 600,
@@ -47,6 +48,10 @@ function create ()
   scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: 'green' });
   scoreText.setText('Assign: <%= @live_todo %>');
 
+  pushEventHook.handleEvent("phxEventToJS", (payload) => {
+    <%# console.log(payload); %>
+    scoreText.setText(payload.bark);
+  })
 
     <%# var particles = this.add.particles('red'); %>
 

@@ -20,6 +20,7 @@ defmodule GoWeb.Router do
     # live "/", PageLive, :index
     live "/", GamePhaserLive, :index
     live "/css", GameCssLive, :index
+    live "/svg", GameSvgLive, :index
   end
 
   # Other scopes may use custom stacks.

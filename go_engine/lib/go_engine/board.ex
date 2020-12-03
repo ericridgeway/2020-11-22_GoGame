@@ -1,14 +1,14 @@
 defmodule GoEngine.Board do
 
   def new() do
-    -1
+    %{}
   end
 
   def add_piece(t, color, x, y) do
-    -1
+    Map.put(t, {x, y}, color)
   end
 
   def has_piece?(t, color, x, y) do
-    true
+    color == Map.get(t, {x, y})
   end
 end

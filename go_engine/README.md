@@ -1,6 +1,5 @@
 # GoEngine
 
-**TODO: Add description**
 
 ## Installation
 

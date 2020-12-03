@@ -1,6 +1,6 @@
 defmodule GoEngine.Board do
 
-  def new() do
+  def new(size \\ 9) do
     %{}
   end
 
@@ -11,4 +11,6 @@ defmodule GoEngine.Board do
   def has_piece?(t, color, x, y) do
     color == Map.get(t, {x, y})
   end
+
+  def size(t), do: 9
 end

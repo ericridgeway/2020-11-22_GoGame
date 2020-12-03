@@ -11,6 +11,12 @@ defmodule GoEngineTest.Board do
     assert Board.has_piece?(board, :black, 1, 1)
     refute Board.has_piece?(board, :white, 1, 1)
   end
+
+  test "Board size" do
+    board = Board.new(9)
+
+    assert Board.size(board) == 9
+  end
 end
 
 # TODO Alternative for has_piece? if only tests need it eventually?

@@ -13,6 +13,7 @@ defmodule GoEngine.Board do
   end
 
   def has_piece?(t, color, x, y) do
+    # TODO is this in Pieces? Should Pieces exist? Idk, look at it and play later. Also decide on the getter setter syntax sort of thing
     color == Map.get(pieces(t), {x, y})
   end
 

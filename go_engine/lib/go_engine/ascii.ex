@@ -13,11 +13,8 @@ defmodule GoEngine.Ascii do
 
     ascii_list
     |> Enum.with_index(1)
-    |> Enum.reduce(Main.new(size), fn ({row, row_num}, t) ->
-
-      # TODO t should be main
-      add_pieces_from_ascii(t, row, row_num)
-
+    |> Enum.reduce(Main.new(size), fn ({row, row_num}, main) ->
+      add_pieces_from_ascii(main, row, row_num)
     end)
   end
 
@@ -46,14 +43,14 @@ defmodule GoEngine.Ascii do
     |> Enum.reverse()
   end
 
-  defp add_pieces_from_ascii(t, row, row_num) do
+  defp add_pieces_from_ascii(main, row, row_num) do
     row
     |> Enum.with_index(1)
-    |> Enum.reduce(t, fn ({col, col_num}, t) ->
+    |> Enum.reduce(main, fn ({col, col_num}, main) ->
       case col do
-        "b" -> Main.add_piece(t, :black, col_num, row_num)
-        "w" -> Main.add_piece(t, :white, col_num, row_num)
-        _ -> t
+        "b" -> Main.add_piece(main, :black, col_num, row_num)
+        "w" -> Main.add_piece(main, :white, col_num, row_num)
+        _ -> main
       end
     end)
   end

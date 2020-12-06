@@ -7,10 +7,6 @@ defmodule GoEngine.Main do
     struct(__MODULE__, size: size)
   end
 
-  def new_from_ascii(ascii_list) do
-    Ascii.main_from_ascii(ascii_list)
-  end
-
   def add_piece(t, color, x, y) do
     size = size(t)
 
@@ -26,6 +22,7 @@ defmodule GoEngine.Main do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
 
+  def new_from_ascii(ascii_list), do: Ascii.main_from_ascii(ascii_list)
   def ascii(t), do: Ascii.ascii_from_main(t)
 
   def size(t), do: t.size

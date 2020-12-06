@@ -8,11 +8,7 @@ defmodule GoEngine.Main do
   end
 
   def new_from_ascii(ascii_list) do
-    with :ok <- Ascii.check_x_and_y_lengths_match(ascii_list) do
-      Ascii.main_from_ascii(ascii_list)
-    else
-      error -> error
-    end
+    Ascii.main_from_ascii(ascii_list)
   end
 
   def add_piece(t, color, x, y) do

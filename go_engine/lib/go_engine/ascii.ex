@@ -28,10 +28,10 @@ defmodule GoEngine.Ascii do
     end)
   end
 
-  def check_x_and_y_lengths_match(list) do
-    target_size = length(list)
+  def check_x_and_y_lengths_match(ascii_list) do
+    target_size = length(ascii_list)
 
-    all_match = Enum.all?(list, fn row ->
+    all_match = Enum.all?(ascii_list, fn row ->
       length(row) == target_size
     end)
 
@@ -55,5 +55,5 @@ defmodule GoEngine.Ascii do
 end
 
 # NOTE @William I'm a little twitchy about Main calling Ascii and Ascii calling Main. Not sure that double-direction is ok?
-#   For eg, Main ONLY calls Pieces. Pieces doesn't know Main exists
-#   Ascii is almost just a 2nd half of the Main file. It's just a nice sub-group of the main file that I thought looked better readable/organized in another module. But it needs to do a lot of Main stuff inside itself, Main.new, main.add_piece. It could even hold the with-statement error check that new_from_ascii has wrapped around it's call "down" to Ascii...
+#   For example, Main ONLY calls Pieces. Pieces doesn't know Main exists
+#   Ascii is almost just a 2nd half of the Main file. It's just a nice sub-group of the main file that I thought looked more readable/organized in another module. But it needs to do a lot of Main stuff inside itself, Main.new, main.add_piece. It could even hold the with-statement error check that new_from_ascii has wrapped around it's call "down" to Ascii...

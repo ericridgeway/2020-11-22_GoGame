@@ -87,4 +87,17 @@ defmodule GoEngineTest.Main do
       |> Main.new_from_ascii()
     end
   end
+
+  describe "Liberties" do
+    test "After add_piece, check liberties. Remove if 0" do
+      # TODO next
+      # TODO alternative next- cool ui stuff, can add some of the funcs I've made in engine
+      #   to work up there
+      #   Can also draw the full 9by9 or whatever etc grid using Main.size up there, nice
+    end
+
+    # TODO captures counter increases when piece removed
+  end
+
+  # TODO more later, history of Pieces's tracked, so no ko (can't repeat piece's states)
 end

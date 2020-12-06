@@ -33,14 +33,17 @@ defmodule GoEngineTest.Main do
       ]
     end
 
-    # test "TODO" do
-    #   main =
-    #     Main.new(3)
-    #     |> Main.add_piece(:black, 1, 1)
+    test "After adding pieces" do
+      main =
+        Main.new(3)
+        |> Main.add_piece(:black, 1, 1)
+        |> Main.add_piece(:white, 3, 2)
 
-    #   assert Main.ascii(main) == [
-    #     ~w[b 0 0],
-    #   ]
-    # end
+      assert Main.ascii(main) == [
+        ~w[b 0 0],
+        ~w[0 0 w],
+        ~w[0 0 0],
+      ]
+    end
   end
 end

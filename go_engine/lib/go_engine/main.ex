@@ -17,8 +17,8 @@ defmodule GoEngine.Main do
   end
 
   def ascii(t) do
-    Enum.reduce(1..size(t), [], fn (_row_num, row_list) ->
-      [columns(t) | row_list]
+    Enum.reduce(1..size(t), [], fn (row_num, row_list) ->
+      [columns(t, row_num) | row_list]
     end)
     |> Enum.reverse()
   end
@@ -29,9 +29,16 @@ defmodule GoEngine.Main do
   defp pieces(t), do: t.pieces
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 
-  defp columns(t) do
-    Enum.reduce(1..size(t), [], fn (_col_num, col_list) ->
-      ["0" | col_list]
+  defp columns(t, row_num) do
+    Enum.reduce(1..size(t), [], fn (col_num, col_list) ->
+      letter =
+        cond do
+          has_piece?(t, :black, col_num, row_num) -> "b"
+          has_piece?(t, :white, col_num, row_num) -> "w"
+          true -> "0"
+        end
+
+        [letter | col_list]
     end)
     |> Enum.reverse()
   end

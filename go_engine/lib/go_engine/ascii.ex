@@ -3,7 +3,7 @@ defmodule GoEngine.Ascii do
 
   def ascii_from_main(main) do
     Enum.reduce(1..Main.size(main), [], fn (row_num, row_list) ->
-      [columns(main, row_num) | row_list]
+      [draw_ascii_columns(main, row_num) | row_list]
     end)
     |> Enum.reverse()
   end
@@ -15,15 +15,8 @@ defmodule GoEngine.Ascii do
     |> Enum.with_index(1)
     |> Enum.reduce(Main.new(size), fn ({row, row_num}, t) ->
 
-      row
-      |> Enum.with_index(1)
-      |> Enum.reduce(t, fn ({col, col_num}, t) ->
-        case col do
-          "b" -> Main.add_piece(t, :black, col_num, row_num)
-          "w" -> Main.add_piece(t, :white, col_num, row_num)
-          _ -> t
-        end
-      end)
+      # TODO t should be main
+      add_pieces_from_ascii(t, row, row_num)
 
     end)
   end
@@ -39,7 +32,7 @@ defmodule GoEngine.Ascii do
   end
 
 
-  defp columns(main, row_num) do
+  defp draw_ascii_columns(main, row_num) do
     Enum.reduce(1..Main.size(main), [], fn (col_num, col_list) ->
       letter =
         cond do
@@ -51,6 +44,18 @@ defmodule GoEngine.Ascii do
         [letter | col_list]
     end)
     |> Enum.reverse()
+  end
+
+  defp add_pieces_from_ascii(t, row, row_num) do
+    row
+    |> Enum.with_index(1)
+    |> Enum.reduce(t, fn ({col, col_num}, t) ->
+      case col do
+        "b" -> Main.add_piece(t, :black, col_num, row_num)
+        "w" -> Main.add_piece(t, :white, col_num, row_num)
+        _ -> t
+      end
+    end)
   end
 end
 

@@ -16,7 +16,15 @@ defmodule GoEngine.Main do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
 
+  def ascii(t) do
+    [
+      ~w[0 0],
+      ~w[0 0],
+    ]
+  end
+
   def size(t), do: t.size
+
 
   defp pieces(t), do: t.pieces
   defp update_pieces(t, new), do: struct!(t, pieces: new)

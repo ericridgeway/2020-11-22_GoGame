@@ -21,4 +21,26 @@ defmodule GoEngineTest.Main do
       assert Main.size(main) == 3
     end
   end
+
+  describe "Ascii" do
+    test "Blank ascii" do
+      main =
+        Main.new(2)
+
+      assert Main.ascii(main) == [
+        ~w[0 0],
+        ~w[0 0],
+      ]
+    end
+
+    # test "TODO" do
+    #   main =
+    #     Main.new(3)
+    #     |> Main.add_piece(:black, 1, 1)
+
+    #   assert Main.ascii(main) == [
+    #     ~w[b 0 0],
+    #   ]
+    # end
+  end
 end

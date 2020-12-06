@@ -15,7 +15,7 @@
     main_size = Main.size(@main)
     length = (unit * main_size) + 50
   %>
-  <svg width="<%= length %>" height="<%= length %>" class="border-4">
+  <svg width="<%= length %>" height="<%= length %>" class="p-4 border-4">
     <%# Draw board grid %>
     <%= for row <- 0..main_size-2 do %>
 

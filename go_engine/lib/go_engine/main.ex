@@ -1,10 +1,10 @@
 defmodule GoEngine.Main do
   alias GoEngine.{Pieces}
 
-  defstruct [pieces: Pieces.new()]
+  defstruct [:size, pieces: Pieces.new()]
 
-  def new() do
-    struct(__MODULE__)
+  def new(size \\ 9) do
+    struct(__MODULE__, size: size)
   end
 
   def add_piece(t, color, x, y) do
@@ -16,6 +16,7 @@ defmodule GoEngine.Main do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
 
+  def size(t), do: t.size
 
   defp pieces(t), do: t.pieces
   defp update_pieces(t, new), do: struct!(t, pieces: new)

@@ -13,4 +13,12 @@ defmodule GoEngineTest.Main do
       refute Main.has_piece?(main, :white, 1, 1)
     end
   end
+
+  describe "Board" do
+    test "size" do
+      main = Main.new(3)
+
+      assert Main.size(main) == 3
+    end
+  end
 end

@@ -78,10 +78,8 @@ defmodule GoEngine.Main do
       length(row) == target_size
     end)
 
-    if all_match do
-      :ok
-    else
-      {:error, :width_and_height_must_match}
-    end
+    if all_match, do: :ok, else: {:error, :width_and_height_must_match}
   end
 end
+
+# TODO then extract Ascii module

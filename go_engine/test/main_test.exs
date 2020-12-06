@@ -86,7 +86,5 @@ defmodule GoEngineTest.Main do
       ]
       |> Main.new_from_ascii()
     end
-
-    # TODO then extract Ascii module
   end
 end

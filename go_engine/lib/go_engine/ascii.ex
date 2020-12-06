@@ -58,4 +58,8 @@ end
 
 # NOTE @William I'm a little twitchy about Main calling Ascii and Ascii calling Main. Not sure that double-direction is ok?
 #   For example, Main ONLY calls Pieces. Pieces doesn't know Main exists
+#
 #   Ascii is almost just a 2nd half of the Main file. It's just a nice sub-group of the main file that I thought looked more readable/organized in another module. But it needs to do a lot of Main stuff inside itself, Main.new, main.add_piece. It could even hold the with-statement error check that new_from_ascii has wrapped around it's call "down" to Ascii...
+#
+#
+#   update: Possible solution, GoEngine.Main.Ascii... I thought I'd decided not to do those anymore cause they were annoying me with the layers and the folder structer easily getting desync'd. Maybe this is where it makes sense tho?

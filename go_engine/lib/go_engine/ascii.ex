@@ -8,6 +8,16 @@ defmodule GoEngine.Ascii do
     |> Enum.reverse()
   end
 
+  def check_x_and_y_lengths_match(list) do
+    target_size = length(list)
+
+    all_match = Enum.all?(list, fn row ->
+      length(row) == target_size
+    end)
+
+    if all_match, do: :ok, else: {:error, :width_and_height_must_match}
+  end
+
 
   defp columns(main, row_num) do
     Enum.reduce(1..Main.size(main), [], fn (col_num, col_list) ->

@@ -10,7 +10,7 @@ defmodule GoEngine.Main do
   def new_from_ascii(ascii_list) do
     # Ascii.main_from_ascii(ascii_list)
 
-    with :ok <- check_x_and_y_lengths_match(ascii_list) do
+    with :ok <- Ascii.check_x_and_y_lengths_match(ascii_list) do
       size = length(ascii_list)
 
       ascii_list
@@ -55,14 +55,4 @@ defmodule GoEngine.Main do
 
   defp pieces(t), do: t.pieces
   defp update_pieces(t, new), do: struct!(t, pieces: new)
-
-  defp check_x_and_y_lengths_match(list) do
-    target_size = length(list)
-
-    all_match = Enum.all?(list, fn row ->
-      length(row) == target_size
-    end)
-
-    if all_match, do: :ok, else: {:error, :width_and_height_must_match}
-  end
 end

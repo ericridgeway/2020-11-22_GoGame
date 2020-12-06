@@ -9,27 +9,23 @@ defmodule GoEngine.Ascii do
   end
 
   def main_from_ascii(ascii_list) do
-    with :ok <- check_x_and_y_lengths_match(ascii_list) do
-      size = length(ascii_list)
+    size = length(ascii_list)
 
-      ascii_list
+    ascii_list
+    |> Enum.with_index(1)
+    |> Enum.reduce(Main.new(size), fn ({row, row_num}, t) ->
+
+      row
       |> Enum.with_index(1)
-      |> Enum.reduce(Main.new(size), fn ({row, row_num}, t) ->
-
-        row
-        |> Enum.with_index(1)
-        |> Enum.reduce(t, fn ({col, col_num}, t) ->
-          case col do
-            "b" -> Main.add_piece(t, :black, col_num, row_num)
-            "w" -> Main.add_piece(t, :white, col_num, row_num)
-            _ -> t
-          end
-        end)
-
+      |> Enum.reduce(t, fn ({col, col_num}, t) ->
+        case col do
+          "b" -> Main.add_piece(t, :black, col_num, row_num)
+          "w" -> Main.add_piece(t, :white, col_num, row_num)
+          _ -> t
+        end
       end)
-    else
-      error -> error
-    end
+
+    end)
   end
 
   def check_x_and_y_lengths_match(list) do
@@ -57,3 +53,7 @@ defmodule GoEngine.Ascii do
     |> Enum.reverse()
   end
 end
+
+# NOTE @William I'm a little twitchy about Main calling Ascii and Ascii calling Main. Not sure that double-direction is ok?
+#   For eg, Main ONLY calls Pieces. Pieces doesn't know Main exists
+#   Ascii is almost just a 2nd half of the Main file. It's just a nice sub-group of the main file that I thought looked better readable/organized in another module. But it needs to do a lot of Main stuff inside itself, Main.new, main.add_piece. It could even hold the with-statement error check that new_from_ascii has wrapped around it's call "down" to Ascii...

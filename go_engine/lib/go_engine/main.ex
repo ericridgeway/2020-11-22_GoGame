@@ -7,6 +7,14 @@ defmodule GoEngine.Main do
     struct(__MODULE__, size: size)
   end
 
+  def new_from_ascii(ascii_list) do
+    with :ok <- Ascii.check_x_and_y_lengths_match(ascii_list) do
+      Ascii.main_from_ascii(ascii_list)
+    else
+      error -> error
+    end
+  end
+
   def add_piece(t, color, x, y) do
     if x in 1..size(t) and y in 1..size(t) do
       t
@@ -15,18 +23,11 @@ defmodule GoEngine.Main do
       {:error, :add_piece_outside_range}
     end
   end
-  # TODO Maybe move new_from_ascii with-statement error check back up here, and shuffle the
-  #   x and y size check above here to be a Pieces function, and this also uses the with syntax
-  #
-  # I'm also twitchy about this calling Ascii and Ascii calling this. Not sure that double-direction
-  #   is ok?
-
 
   def has_piece?(t, color, x, y) do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
 
-  def new_from_ascii(ascii_list), do: Ascii.main_from_ascii(ascii_list)
   def ascii(t), do: Ascii.ascii_from_main(t)
 
   def size(t), do: t.size

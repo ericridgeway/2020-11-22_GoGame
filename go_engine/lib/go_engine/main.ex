@@ -46,7 +46,7 @@ defmodule GoEngine.Main do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
 
-  def ascii(t), do: Ascii.get_from_main(t)
+  def ascii(t), do: Ascii.ascii_from_main(t)
 
   def size(t), do: t.size
 
@@ -62,5 +62,3 @@ defmodule GoEngine.Main do
     if all_match, do: :ok, else: {:error, :width_and_height_must_match}
   end
 end
-
-# TODO then extract Ascii module

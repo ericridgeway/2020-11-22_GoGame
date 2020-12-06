@@ -1,7 +1,7 @@
 defmodule GoEngine.Ascii do
   alias GoEngine.Main
 
-  def get_from_main(main) do
+  def ascii_from_main(main) do
     Enum.reduce(1..Main.size(main), [], fn (row_num, row_list) ->
       [columns(main, row_num) | row_list]
     end)

@@ -12,6 +12,16 @@ defmodule GoEngineTest.Main do
       assert Main.has_piece?(main, :black, 1, 1)
       refute Main.has_piece?(main, :white, 1, 1)
     end
+
+    test "Error if add_piece outside size" do
+      assert {:error, :add_piece_outside_range} =
+        Main.new(4)
+        |> Main.add_piece(:black, 5, 1)
+
+      assert {:error, :add_piece_outside_range} =
+        Main.new(4)
+        |> Main.add_piece(:white, 1, 0)
+    end
   end
 
   describe "Board" do
@@ -62,5 +72,7 @@ defmodule GoEngineTest.Main do
 
       assert generated_main == target_main
     end
+
+    # TODO then extract Ascii module
   end
 end

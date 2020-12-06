@@ -29,8 +29,14 @@ defmodule GoEngine.Main do
   end
 
   def add_piece(t, color, x, y) do
-    t
-    |> update_pieces(Pieces.add(pieces(t), color, x, y))
+    size = size(t)
+
+    if x in 1..size and y in 1..size do
+      t
+      |> update_pieces(Pieces.add(pieces(t), color, x, y))
+    else
+      {:error, :add_piece_outside_range}
+    end
   end
 
   def has_piece?(t, color, x, y) do

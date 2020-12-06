@@ -8,9 +8,11 @@ defmodule GoEngine.Main do
   end
 
   def new_from_ascii(ascii_list) do
-    size = length(ascii_list)
+    # Ascii.main_from_ascii(ascii_list)
 
-    with :ok <- check_x_and_y_lengths_match(ascii_list, size) do
+    with :ok <- check_x_and_y_lengths_match(ascii_list) do
+      size = length(ascii_list)
+
       ascii_list
       |> Enum.with_index(1)
       |> Enum.reduce(new(size), fn ({row, row_num}, t) ->
@@ -54,7 +56,9 @@ defmodule GoEngine.Main do
   defp pieces(t), do: t.pieces
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 
-  defp check_x_and_y_lengths_match(list, target_size) do
+  defp check_x_and_y_lengths_match(list) do
+    target_size = length(list)
+
     all_match = Enum.all?(list, fn row ->
       length(row) == target_size
     end)

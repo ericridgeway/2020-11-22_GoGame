@@ -8,9 +8,7 @@ defmodule GoEngine.Main do
   end
 
   def add_piece(t, color, x, y) do
-    size = size(t)
-
-    if x in 1..size and y in 1..size do
+    if x in 1..size(t) and y in 1..size(t) do
       t
       |> update_pieces(Pieces.add(pieces(t), color, x, y))
     else

@@ -56,7 +56,7 @@ defmodule GoEngineTest.Main do
       ]
     end
 
-    test "New from ascii" do
+    test "Generate main FROM ascii" do
       target_main =
         Main.new(3)
         |> Main.add_piece(:black, 1, 1)

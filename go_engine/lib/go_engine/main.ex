@@ -17,6 +17,12 @@ defmodule GoEngine.Main do
       {:error, :add_piece_outside_range}
     end
   end
+  # TODO Maybe move new_from_ascii with-statement error check back up here, and shuffle the
+  #   x and y size check above here to be a Pieces function, and this also uses the with syntax
+  #
+  # I'm also twitchy about this calling Ascii and Ascii calling this. Not sure that double-direction
+  #   is ok?
+
 
   def has_piece?(t, color, x, y) do
     Pieces.has_piece?(pieces(t), color, x, y)

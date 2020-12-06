@@ -16,11 +16,11 @@ defmodule GoEngine.Main do
   end
 
   def add_piece(t, color, x, y) do
-    if x in 1..size(t) and y in 1..size(t) do
+    with :ok <- Pieces.check_x_and_y_in_range(x, y, size(t)) do
       t
       |> update_pieces(Pieces.add(pieces(t), color, x, y))
     else
-      {:error, :add_piece_outside_range}
+      error -> error
     end
   end
 
@@ -31,8 +31,7 @@ defmodule GoEngine.Main do
   def ascii(t), do: Ascii.ascii_from_main(t)
 
   def size(t), do: t.size
-
-
   defp pieces(t), do: t.pieces
+
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 end

@@ -73,6 +73,20 @@ defmodule GoEngineTest.Main do
       assert generated_main == target_main
     end
 
+    test "Error if row length doesnt match num cols" do
+      assert {:error, :width_and_height_must_match} = [
+        ~w[0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert {:error, :width_and_height_must_match} = [
+        ~w[w],
+        ~w[b b],
+      ]
+      |> Main.new_from_ascii()
+    end
+
     # TODO then extract Ascii module
   end
 end

@@ -7,25 +7,28 @@ defmodule GoEngine.Main do
     struct(__MODULE__, size: size)
   end
 
-  # TODO with statement error check (and test first uneven rows cols #s)
   def new_from_ascii(ascii_list) do
     size = length(ascii_list)
 
-    ascii_list
-    |> Enum.with_index(1)
-    |> Enum.reduce(new(size), fn ({row, row_num}, t) ->
-
-      row
+    with :ok <- check_x_and_y_lengths_match(ascii_list, size) do
+      ascii_list
       |> Enum.with_index(1)
-      |> Enum.reduce(t, fn ({col, col_num}, t) ->
-        case col do
-          "b" -> add_piece(t, :black, col_num, row_num)
-          "w" -> add_piece(t, :white, col_num, row_num)
-          _ -> t
-        end
-      end)
+      |> Enum.reduce(new(size), fn ({row, row_num}, t) ->
 
-    end)
+        row
+        |> Enum.with_index(1)
+        |> Enum.reduce(t, fn ({col, col_num}, t) ->
+          case col do
+            "b" -> add_piece(t, :black, col_num, row_num)
+            "w" -> add_piece(t, :white, col_num, row_num)
+            _ -> t
+          end
+        end)
+
+      end)
+    else
+      error -> error
+    end
   end
 
   def add_piece(t, color, x, y) do
@@ -68,5 +71,17 @@ defmodule GoEngine.Main do
         [letter | col_list]
     end)
     |> Enum.reverse()
+  end
+
+  defp check_x_and_y_lengths_match(list, target_size) do
+    all_match = Enum.all?(list, fn row ->
+      length(row) == target_size
+    end)
+
+    if all_match do
+      :ok
+    else
+      {:error, :width_and_height_must_match}
+    end
   end
 end

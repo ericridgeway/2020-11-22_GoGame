@@ -8,26 +8,8 @@ defmodule GoEngine.Main do
   end
 
   def new_from_ascii(ascii_list) do
-    # Ascii.main_from_ascii(ascii_list)
-
     with :ok <- Ascii.check_x_and_y_lengths_match(ascii_list) do
-      size = length(ascii_list)
-
-      ascii_list
-      |> Enum.with_index(1)
-      |> Enum.reduce(new(size), fn ({row, row_num}, t) ->
-
-        row
-        |> Enum.with_index(1)
-        |> Enum.reduce(t, fn ({col, col_num}, t) ->
-          case col do
-            "b" -> add_piece(t, :black, col_num, row_num)
-            "w" -> add_piece(t, :white, col_num, row_num)
-            _ -> t
-          end
-        end)
-
-      end)
+      Ascii.main_from_ascii(ascii_list)
     else
       error -> error
     end

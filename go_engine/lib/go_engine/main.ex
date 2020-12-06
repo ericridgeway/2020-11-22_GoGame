@@ -7,6 +7,27 @@ defmodule GoEngine.Main do
     struct(__MODULE__, size: size)
   end
 
+  # TODO with statement error check (and test first uneven rows cols #s)
+  def new_from_ascii(ascii_list) do
+    size = length(ascii_list)
+
+    ascii_list
+    |> Enum.with_index(1)
+    |> Enum.reduce(new(size), fn ({row, row_num}, t) ->
+
+      row
+      |> Enum.with_index(1)
+      |> Enum.reduce(t, fn ({col, col_num}, t) ->
+        case col do
+          "b" -> add_piece(t, :black, col_num, row_num)
+          "w" -> add_piece(t, :white, col_num, row_num)
+          _ -> t
+        end
+      end)
+
+    end)
+  end
+
   def add_piece(t, color, x, y) do
     t
     |> update_pieces(Pieces.add(pieces(t), color, x, y))

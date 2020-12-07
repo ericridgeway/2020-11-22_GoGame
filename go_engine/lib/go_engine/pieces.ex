@@ -10,7 +10,7 @@ defmodule GoEngine.Pieces do
   end
 
   def has_piece?(t, color, x, y) do
-    color == Map.get(t, {x, y})
+    color == color(t, x, y)
   end
 
   def check_x_and_y_in_range(x, y, range) do

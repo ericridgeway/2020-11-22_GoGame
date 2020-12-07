@@ -131,6 +131,7 @@ defmodule GoEngineTest.Main do
       |> Main.new_from_ascii()
 
       assert Main.liberties(main, 1, 1) == 1
+      assert Main.liberties(main, 1, 2) == 2
     end
 
     # test "Multiple stones share libs" do

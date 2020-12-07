@@ -134,16 +134,16 @@ defmodule GoEngineTest.Main do
       assert Main.liberties(main, 1, 2) == 2
     end
 
-    test "Multiple stones share libs" do
-      main = [
-        ~w[0 b 0],
-        ~w[0 b 0],
-        ~w[0 w 0],
-      ]
-      |> Main.new_from_ascii()
+    # test "Multiple stones share libs" do
+    #   main = [
+    #     ~w[0 b 0],
+    #     ~w[0 b 0],
+    #     ~w[0 w 0],
+    #   ]
+    #   |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 1) == 4
-    end
+    #   assert Main.liberties(main, 2, 1) == 4
+    # end
 
     # TODO error if check liberties for blank space
 

@@ -30,8 +30,8 @@ defmodule GoEngine.Main do
 
     liberties_list =
       cardinals(x, y)
-      |> subtract_out_of_bounds(size(t))
-      |> subtract_opponent_stones(t, opponent)
+      |> reject_out_of_bounds(size(t))
+      |> reject_opponent_stones(t, opponent)
 
     length(liberties_list)
   end
@@ -45,13 +45,13 @@ defmodule GoEngine.Main do
     ]
   end
 
-  defp subtract_out_of_bounds(cardinals, size) do
+  defp reject_out_of_bounds(cardinals, size) do
     Enum.filter(cardinals, fn {x, y} ->
       x in 1..size and y in 1..size
     end)
   end
 
-  defp subtract_opponent_stones(neighbors, t, opponent) do
+  defp reject_opponent_stones(neighbors, t, opponent) do
     Enum.reject(neighbors, fn {x, y} ->
       Pieces.color(pieces(t), x, y) == opponent
     end)

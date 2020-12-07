@@ -24,7 +24,7 @@ defmodule GoEngine.Main do
     end
   end
 
-  def liberties(t, x, y, checked \\ [], count \\ 0) do
+  def liberties(t, x, y) do
     color = Pieces.color(pieces(t), x, y)
     opponent = opponent(color)
 
@@ -32,19 +32,8 @@ defmodule GoEngine.Main do
       cardinals(x, y)
       |> reject_out_of_bounds(size(t))
       |> reject_opponent_stones(t, opponent)
-      |> reject_checked(checked)
-      |> Enum.reduce(count, fn {neighbor_x, neighbor_y}, count ->
-        case Pieces.color(pieces(t), neighbor_x, neighbor_y) do
-          ^color -> liberties(t, neighbor_x, neighbor_y, [{x, y} | checked], count)
-          nil -> count + 1
-          _ -> {:error, :bad_piece_type} # shouldnt be able to get here...
-        end
-      end)
-      # |> Kernel.+(count)
 
-    # checked = [{x, y} | checked]
-
-    # length(liberties_list) + count
+    length(liberties_list)
   end
 
   defp cardinals(x, y) do
@@ -65,13 +54,6 @@ defmodule GoEngine.Main do
   defp reject_opponent_stones(neighbors, t, opponent) do
     Enum.reject(neighbors, fn {x, y} ->
       Pieces.color(pieces(t), x, y) == opponent
-    end)
-  end
-
-  defp reject_checked(neighbors, checked) do
-    Enum.reject(neighbors, fn {x, y} ->
-      # TODO & syntax works here I think
-      {x, y} in checked
     end)
   end
 

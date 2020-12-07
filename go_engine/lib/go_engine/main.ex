@@ -25,29 +25,15 @@ defmodule GoEngine.Main do
   end
 
   def liberties(t, x, y) do
-    # length(liberties_list(t, x, y))
-    liberties_list(t, x, y)
-  end
-
-  defp liberties_list(t, x, y) do
     color = Pieces.color(pieces(t), x, y)
     opponent = opponent(color)
 
-    liberties_or_same_color_list =
+    liberties_list =
       cardinals(x, y)
-      |> reject_out_of_bounds(size(t))
-      |> reject_opponent_stones(t, opponent)
+      |> subtract_out_of_bounds(size(t))
+      |> subtract_opponent_stones(t, opponent)
 
-    Enum.map_reduce(liberties_or_same_color_list, 0, fn ({neighbor_x, neighbor_y}, count) ->
-      # {}
-      case Pieces.color(pieces(t), neighbor_x, neighbor_y) do
-        ^color -> asd
-        nil -> {, count + 1}
-
-          # TODO look at this again. Shouldnt be able to get here, all pieces should be accounted for
-        _ -> {:error, :bad_piece_type}
-      end
-    end)
+    length(liberties_list)
   end
 
   defp cardinals(x, y) do
@@ -59,13 +45,13 @@ defmodule GoEngine.Main do
     ]
   end
 
-  defp reject_out_of_bounds(cardinals, size) do
+  defp subtract_out_of_bounds(cardinals, size) do
     Enum.filter(cardinals, fn {x, y} ->
       x in 1..size and y in 1..size
     end)
   end
 
-  defp reject_opponent_stones(neighbors, t, opponent) do
+  defp subtract_opponent_stones(neighbors, t, opponent) do
     Enum.reject(neighbors, fn {x, y} ->
       Pieces.color(pieces(t), x, y) == opponent
     end)

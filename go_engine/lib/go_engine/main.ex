@@ -24,6 +24,40 @@ defmodule GoEngine.Main do
     end
   end
 
+  def liberties(t, x, y) do
+    color = Pieces.color(pieces(t), x, y)
+    opponent = opponent(color)
+
+    liberties_list =
+      cardinals(x, y)
+      |> subtract_out_of_bounds(size(t))
+      |> subtract_opponent_stones(t, opponent)
+
+    length(liberties_list)
+  end
+
+  defp cardinals(x, y) do
+    [
+      {x+1, y},
+      {x-1, y},
+      {x, y+1},
+      {x, y-1},
+    ]
+  end
+
+  defp subtract_out_of_bounds(cardinals, size) do
+    Enum.filter(cardinals, fn {x, y} ->
+      x in 1..size and y in 1..size
+    end)
+  end
+
+  defp subtract_opponent_stones(neighbors, t, opponent) do
+    Enum.reject(neighbors, fn {x, y} ->
+      Pieces.color(pieces(t), x, y) == opponent
+    end)
+  end
+
+
   def has_piece?(t, color, x, y) do
     Pieces.has_piece?(pieces(t), color, x, y)
   end
@@ -34,4 +68,7 @@ defmodule GoEngine.Main do
   defp pieces(t), do: t.pieces
 
   defp update_pieces(t, new), do: struct!(t, pieces: new)
+
+  defp opponent(:black), do: :white
+  defp opponent(:white), do: :black
 end

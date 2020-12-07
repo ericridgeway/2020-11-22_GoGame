@@ -5,6 +5,10 @@ defmodule GoEngine.Pieces do
     Map.put(t, {x, y}, color)
   end
 
+  def color(t, x, y) do
+    Map.get(t, {x, y})
+  end
+
   def has_piece?(t, color, x, y) do
     color == Map.get(t, {x, y})
   end

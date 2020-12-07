@@ -89,12 +89,66 @@ defmodule GoEngineTest.Main do
   end
 
   describe "Liberties" do
-    test "After add_piece, check liberties. Remove if 0" do
-      # TODO next
-      # TODO alternative next- cool ui stuff, can add some of the funcs I've made in engine
-      #   to work up there
-      #   Can also draw the full 9by9 or whatever etc grid using Main.size up there, nice
+    test "single stone all liberties" do
+      main = [
+        ~w[0 0 0],
+        ~w[0 b 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 2, 2) == 4
     end
+
+    test "single stone 1 wall" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 2, 1) == 3
+    end
+
+    test "single stone cornor" do
+      main = [
+        ~w[0 0 0],
+        ~w[0 0 0],
+        ~w[0 0 w],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 3, 3) == 2
+    end
+
+    test "Enemy stones reduce libs" do
+      main = [
+        ~w[b 0 0],
+        ~w[w 0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 1, 1) == 1
+    end
+
+    # test "Multiple stones share libs" do
+    #   main = [
+    #     ~w[0 b 0],
+    #     ~w[0 b 0],
+    #     ~w[0 0 0],
+    #   ]
+    #   |> Main.new_from_ascii()
+
+    #   assert Main.liberties(main, 2, 2) == 5
+    # end
+
+    # TODO error if check liberties for blank space
+
+    # test "After add_piece, check liberties. Remove if 0" do
+    #   TODO
+    # end
 
     # TODO captures counter increases when piece removed
   end

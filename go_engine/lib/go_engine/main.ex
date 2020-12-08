@@ -25,15 +25,43 @@ defmodule GoEngine.Main do
   end
 
   def liberties(t, x, y) do
-    color = Pieces.color(pieces(t), x, y)
-    opponent = opponent(color)
+    # color = Pieces.color(pieces(t), x, y)
+    # opponent = opponent(color)
 
-    liberties_list =
+    # liberties_list =
+    #   cardinals(x, y)
+    #   |> reject_out_of_bounds(size(t))
+    #   |> reject_opponent_stones(t, opponent)
+
+    # length(liberties_list)
+
+    {neighbors, checked} = neighbors(t, x, y)
+    IO.puts ""; require InspectVars; InspectVars.inspect([neighbors, checked])
+    length(neighbors)
+  end
+
+  defp neighbors(t, x, y, checked \\ []) do
+    if {x, y} in checked do
+      {[], checked}
+    else
+      color = Pieces.color(pieces(t), x, y)
+      opponent = opponent(color)
+
+    # {liberties, checked} =
       cardinals(x, y)
       |> reject_out_of_bounds(size(t))
       |> reject_opponent_stones(t, opponent)
-
-    length(liberties_list)
+      |> Enum.reduce({[], checked}, fn ({neighbor_x, neighbor_y}, {liberties, checked}) ->
+        case Pieces.color(pieces(t), neighbor_x, neighbor_y) do
+          nil -> {[{neighbor_x, neighbor_y} | liberties], checked}
+          ^color ->
+            {new_liberties, new_checked} = neighbors(t, neighbor_x, neighbor_y, [{neighbor_x, neighbor_y} | checked])
+              {[new_liberties | liberties], new_checked}
+              _ -> {:error, :bad_piece_type} # shouldnt be able to get here...
+                end
+        end)
+        # killDuplicatesInLiberties
+    end
   end
 
   defp cardinals(x, y) do

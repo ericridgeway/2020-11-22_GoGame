@@ -133,8 +133,21 @@ defmodule GoEngineTest.Main do
       assert Main.liberties(main, 1, 1) == 1
       assert Main.liberties(main, 1, 2) == 2
     end
+  end
 
+  describe "Multi-stone liberties" do
     test "Multiple stones share libs" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 b 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 2, 2) == 5
+    end
+
+    test "Dont double-count lib even if touched twice" do
       main = [
         ~w[0 b 0],
         ~w[0 b b],
@@ -143,6 +156,17 @@ defmodule GoEngineTest.Main do
       |> Main.new_from_ascii()
 
       assert Main.liberties(main, 2, 2) == 5
+    end
+
+    test "Enemy stones still reduce libs" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 b b],
+        ~w[0 w 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert Main.liberties(main, 2, 2) == 4
     end
 
     # TODO error if check liberties for blank space

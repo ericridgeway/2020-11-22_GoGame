@@ -55,7 +55,7 @@ defmodule GoEngine.Main do
         case Pieces.color(pieces(t), neighbor_x, neighbor_y) do
           nil -> {[{neighbor_x, neighbor_y} | liberties], checked}
           ^color ->
-            {new_liberties, new_checked} = neighbors(t, neighbor_x, neighbor_y, [{neighbor_x, neighbor_y} | checked])
+            {new_liberties, new_checked} = neighbors(t, neighbor_x, neighbor_y, [{x, y} | checked])
               {[new_liberties | liberties], new_checked}
               _ -> {:error, :bad_piece_type} # shouldnt be able to get here...
                 end

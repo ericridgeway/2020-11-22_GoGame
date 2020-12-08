@@ -135,48 +135,48 @@ defmodule GoEngineTest.Main do
     end
   end
 
-  describe "Multi-stone liberties" do
-    test "Multiple stones share libs" do
-      main = [
-        ~w[0 b 0],
-        ~w[0 b 0],
-        ~w[0 0 0],
-      ]
-      |> Main.new_from_ascii()
+  # describe "Multi-stone liberties" do
+  #   test "Multiple stones share libs" do
+  #     main = [
+  #       ~w[0 b 0],
+  #       ~w[0 b 0],
+  #       ~w[0 0 0],
+  #     ]
+  #     |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 2) == 5
-    end
+  #     assert Main.liberties(main, 2, 2) == 5
+  #   end
 
-    test "Dont double-count lib even if touched twice" do
-      main = [
-        ~w[0 b 0],
-        ~w[0 b b],
-        ~w[0 0 0],
-      ]
-      |> Main.new_from_ascii()
+  #   test "Dont double-count lib even if touched twice" do
+  #     main = [
+  #       ~w[0 b 0],
+  #       ~w[0 b b],
+  #       ~w[0 0 0],
+  #     ]
+  #     |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 2) == 5
-    end
+  #     assert Main.liberties(main, 2, 2) == 5
+  #   end
 
-    test "Enemy stones still reduce libs" do
-      main = [
-        ~w[0 b 0],
-        ~w[0 b b],
-        ~w[0 w 0],
-      ]
-      |> Main.new_from_ascii()
+  #   test "Enemy stones still reduce libs" do
+  #     main = [
+  #       ~w[0 b 0],
+  #       ~w[0 b b],
+  #       ~w[0 w 0],
+  #     ]
+  #     |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 2) == 4
-    end
+  #     assert Main.liberties(main, 2, 2) == 4
+  #   end
 
-    # TODO error if check liberties for blank space
+  #   # TODO error if check liberties for blank space
 
-    # test "After add_piece, check liberties. Remove if 0" do
-    #   TODO
-    # end
+  #   # test "After add_piece, check liberties. Remove if 0" do
+  #   #   TODO
+  #   # end
 
-    # TODO captures counter increases when piece removed
-  end
+  #   # TODO captures counter increases when piece removed
+  # end
 
   # TODO more later, history of Pieces's tracked, so no ko (can't repeat piece's states)
 end

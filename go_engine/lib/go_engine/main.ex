@@ -36,7 +36,6 @@ defmodule GoEngine.Main do
     # length(liberties_list)
 
     {neighbors, checked} = neighbors(t, x, y)
-    IO.puts ""; require InspectVars; InspectVars.inspect([neighbors, checked])
     length(neighbors)
   end
 

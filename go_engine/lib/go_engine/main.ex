@@ -24,6 +24,26 @@ defmodule GoEngine.Main do
     end
   end
 
+  def group(t, x, y, group \\ []) do
+    group = add_current_to_group(group, x, y)
+    color = Pieces.color(pieces(t), x, y)
+
+    cardinals(x, y)
+    |> Enum.reduce(group, fn ({neighbor_x, neighbor_y}, new_group) ->
+      neighbor_color = Pieces.color(pieces(t), neighbor_x, neighbor_y)
+
+      if not({neighbor_x, neighbor_y} in new_group) and (color == neighbor_color) do
+        group(t, neighbor_x, neighbor_y, new_group)
+      else
+        new_group
+      end
+    end)
+  end
+
+  defp add_current_to_group(group, x, y) do
+    [{x, y} | group]
+  end
+
   def liberties(t, x, y) do
     # color = Pieces.color(pieces(t), x, y)
     # opponent = opponent(color)

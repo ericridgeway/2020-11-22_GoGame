@@ -26,15 +26,12 @@ defmodule GoEngine.Main do
 
   def group(t, x, y), do: Group.new(pieces(t), x, y)
 
-
   def liberties(t, x, y) do
     group(t, x, y)
     |> Liberties.get_list(pieces(t), size(t))
   end
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
-
-
 
   def has_piece?(t, color, x, y) do
     Pieces.has_piece?(pieces(t), color, x, y)

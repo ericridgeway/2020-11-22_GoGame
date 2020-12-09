@@ -24,9 +24,7 @@ defmodule GoEngine.Main do
     end
   end
 
-  def group(t, x, y, group \\ []) do
-    Group.new(pieces(t), x, y)
-  end
+  def group(t, x, y), do: Group.new(pieces(t), x, y)
 
 
   def liberties(t, x, y) do

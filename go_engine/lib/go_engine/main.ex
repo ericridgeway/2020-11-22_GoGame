@@ -45,6 +45,19 @@ defmodule GoEngine.Main do
   end
 
   def liberties(t, x, y) do
+    group(t, x, y)
+    # TODO extract all_cardinals_for_group
+    |> Enum.reduce([], fn ({cur_x, cur_y}, liberties) ->
+      Enum.concat(cardinals(cur_x, cur_y), liberties)
+    end)
+    |> reject_out_of_bounds(size(t))
+    |> reject_duplicates()
+    |> only_empty_spaces(pieces(t))
+  end
+
+  def num_liberties(t, x, y), do: length(liberties(t, x, y))
+
+  def tmp_old_liberties(t, x, y) do
     # color = Pieces.color(pieces(t), x, y)
     # opponent = opponent(color)
 
@@ -101,6 +114,14 @@ defmodule GoEngine.Main do
   defp reject_opponent_stones(neighbors, t, opponent) do
     Enum.reject(neighbors, fn {x, y} ->
       Pieces.color(pieces(t), x, y) == opponent
+    end)
+  end
+
+  defp reject_duplicates(list), do: Enum.uniq(list)
+
+  defp only_empty_spaces(list, pieces) do
+    Enum.filter(list, fn {x, y} ->
+      Pieces.color(pieces, x, y) == nil
     end)
   end
 

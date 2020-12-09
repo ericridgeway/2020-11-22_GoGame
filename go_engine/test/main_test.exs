@@ -97,7 +97,7 @@ defmodule GoEngineTest.Main do
       ]
       |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 2) == 4
+      assert Main.num_liberties(main, 2, 2) == 4
     end
 
     test "single stone 1 wall" do
@@ -108,7 +108,7 @@ defmodule GoEngineTest.Main do
       ]
       |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 2, 1) == 3
+      assert Main.num_liberties(main, 2, 1) == 3
     end
 
     test "single stone cornor" do
@@ -119,7 +119,7 @@ defmodule GoEngineTest.Main do
       ]
       |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 3, 3) == 2
+      assert Main.num_liberties(main, 3, 3) == 2
     end
 
     test "Enemy stones reduce libs" do
@@ -130,8 +130,8 @@ defmodule GoEngineTest.Main do
       ]
       |> Main.new_from_ascii()
 
-      assert Main.liberties(main, 1, 1) == 1
-      assert Main.liberties(main, 1, 2) == 2
+      assert Main.num_liberties(main, 1, 1) == 1
+      assert Main.num_liberties(main, 1, 2) == 2
     end
   end
 
@@ -197,50 +197,49 @@ defmodule GoEngineTest.Main do
     end
   end
 
-  #     assert Main.liberties(main, 2, 2) == 5
-  #   end
-  # describe "Multi-stone liberties" do
-  #   test "Multiple stones share libs" do
-  #     main = [
-  #       ~w[0 b 0],
-  #       ~w[0 b 0],
-  #       ~w[0 0 0],
-  #     ]
-  #     |> Main.new_from_ascii()
+  describe "Multi-stone liberties" do
+    test "Multiple stones share libs" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 b 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
 
-  #     assert Main.liberties(main, 2, 2) == 5
-  #   end
+      assert Main.num_liberties(main, 2, 2) == 5
+    end
 
-  #   test "Dont double-count lib even if touched twice" do
-  #     main = [
-  #       ~w[0 b 0],
-  #       ~w[0 b b],
-  #       ~w[0 0 0],
-  #     ]
-  #     |> Main.new_from_ascii()
+    test "Dont double-count lib even if touched twice" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 b b],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
 
-  #     assert Main.liberties(main, 2, 2) == 5
-  #   end
+      assert Main.num_liberties(main, 2, 2) == 5
+    end
 
-  #   test "Enemy stones still reduce libs" do
-  #     main = [
-  #       ~w[0 b 0],
-  #       ~w[0 b b],
-  #       ~w[0 w 0],
-  #     ]
-  #     |> Main.new_from_ascii()
+    test "Enemy stones still reduce libs" do
+      main = [
+        ~w[0 b 0],
+        ~w[0 b b],
+        ~w[0 w 0],
+      ]
+      |> Main.new_from_ascii()
 
-  #     assert Main.liberties(main, 2, 2) == 4
-  #   end
+      assert Main.num_liberties(main, 2, 2) == 4
+    end
 
-  #   # TODO error if check liberties for blank space
+  end
 
-  #   # test "After add_piece, check liberties. Remove if 0" do
-  #   #   TODO
-  #   # end
+  # TODO error if check liberties for blank space
 
-  #   # TODO captures counter increases when piece removed
+  # test "After add_piece, check liberties. Remove if 0" do
+  #   TODO
   # end
 
-  # TODO more later, history of Pieces's tracked, so no ko (can't repeat piece's states)
+  # TODO captures counter increases when piece removed
+
+  # TODO later, history of Pieces's tracked, so no ko (can't repeat piece's states)
 end

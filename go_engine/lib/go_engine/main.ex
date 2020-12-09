@@ -46,10 +46,7 @@ defmodule GoEngine.Main do
 
   def liberties(t, x, y) do
     group(t, x, y)
-    # TODO extract all_cardinals_for_group
-    |> Enum.reduce([], fn ({cur_x, cur_y}, liberties) ->
-      Enum.concat(cardinals(cur_x, cur_y), liberties)
-    end)
+    |> all_cardinals_for_group()
     |> reject_out_of_bounds(size(t))
     |> reject_duplicates()
     |> only_empty_spaces(pieces(t))
@@ -64,6 +61,12 @@ defmodule GoEngine.Main do
       {x, y+1},
       {x, y-1},
     ]
+  end
+
+  defp all_cardinals_for_group(group_list) do
+    Enum.reduce(group_list, [], fn ({x, y}, all_cardinals) ->
+      Enum.concat(cardinals(x, y), all_cardinals)
+    end)
   end
 
   defp reject_out_of_bounds(cardinals, size) do

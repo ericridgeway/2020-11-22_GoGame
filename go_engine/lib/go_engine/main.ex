@@ -57,45 +57,6 @@ defmodule GoEngine.Main do
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
 
-  def tmp_old_liberties(t, x, y) do
-    # color = Pieces.color(pieces(t), x, y)
-    # opponent = opponent(color)
-
-    # liberties_list =
-    #   cardinals(x, y)
-    #   |> reject_out_of_bounds(size(t))
-    #   |> reject_opponent_stones(t, opponent)
-
-    # length(liberties_list)
-
-    {neighbors, checked} = neighbors(t, x, y)
-    length(neighbors)
-  end
-
-  defp neighbors(t, x, y, checked \\ []) do
-    if {x, y} in checked do
-      {[], checked}
-    else
-      color = Pieces.color(pieces(t), x, y)
-      opponent = opponent(color)
-
-    # {liberties, checked} =
-      cardinals(x, y)
-      |> reject_out_of_bounds(size(t))
-      |> reject_opponent_stones(t, opponent)
-      |> Enum.reduce({[], checked}, fn ({neighbor_x, neighbor_y}, {liberties, checked}) ->
-        case Pieces.color(pieces(t), neighbor_x, neighbor_y) do
-          nil -> {[{neighbor_x, neighbor_y} | liberties], checked}
-          ^color ->
-            {new_liberties, new_checked} = neighbors(t, neighbor_x, neighbor_y, [{x, y} | checked])
-              {[new_liberties | liberties], new_checked}
-              _ -> {:error, :bad_piece_type} # shouldnt be able to get here...
-                end
-        end)
-        # killDuplicatesInLiberties
-    end
-  end
-
   defp cardinals(x, y) do
     [
       {x+1, y},
@@ -108,12 +69,6 @@ defmodule GoEngine.Main do
   defp reject_out_of_bounds(cardinals, size) do
     Enum.filter(cardinals, fn {x, y} ->
       x in 1..size and y in 1..size
-    end)
-  end
-
-  defp reject_opponent_stones(neighbors, t, opponent) do
-    Enum.reject(neighbors, fn {x, y} ->
-      Pieces.color(pieces(t), x, y) == opponent
     end)
   end
 
@@ -137,6 +92,6 @@ defmodule GoEngine.Main do
 
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 
-  defp opponent(:black), do: :white
-  defp opponent(:white), do: :black
+#   defp opponent(:black), do: :white
+#   defp opponent(:white), do: :black
 end

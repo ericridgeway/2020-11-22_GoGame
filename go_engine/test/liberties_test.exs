@@ -3,7 +3,7 @@ defmodule GoEngineTest.Liberties do
 
   alias GoEngine.{Main}
 
-  describe "Liberties" do
+  describe "Single stone libs" do
     test "single stone all liberties" do
       main = [
         ~w[0 0 0],

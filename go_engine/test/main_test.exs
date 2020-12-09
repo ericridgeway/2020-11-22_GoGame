@@ -233,6 +233,14 @@ defmodule GoEngineTest.Main do
 
   end
 
+  # TODO next maybe, split off Group and Liberties 'ish modules. Decide
+  #   how to organize their test files. Their tests need Main to generate for them the
+  #     way I currently do those tests here in this file, prob...
+  #   idk should be fine, play with it. It'll feel real good when they're split out
+  #
+  #   might end up being the Ascii situation where I just make it bi-directional
+  #   vs pieces that is 1 directional. Idk, think about it should be fine :)
+
   # TODO error if check liberties for blank space
 
   # test "After add_piece, check liberties. Remove if 0" do

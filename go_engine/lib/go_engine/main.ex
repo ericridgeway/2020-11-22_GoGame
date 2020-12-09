@@ -32,7 +32,8 @@ defmodule GoEngine.Main do
     |> Enum.reduce(group, fn ({neighbor_x, neighbor_y}, new_group) ->
       neighbor_color = Pieces.color(pieces(t), neighbor_x, neighbor_y)
 
-      if not({neighbor_x, neighbor_y} in new_group) and (color == neighbor_color) do
+      if color == neighbor_color
+          and not_already_in_group(new_group, neighbor_x, neighbor_y) do
         group(t, neighbor_x, neighbor_y, new_group)
       else
         new_group
@@ -42,6 +43,10 @@ defmodule GoEngine.Main do
 
   defp add_current_to_group(group, x, y) do
     [{x, y} | group]
+  end
+
+  defp not_already_in_group(group, x, y) do
+    not({x, y} in group)
   end
 
   def liberties(t, x, y) do

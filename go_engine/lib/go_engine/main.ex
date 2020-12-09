@@ -34,14 +34,6 @@ defmodule GoEngine.Main do
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
 
-  def cardinals(x, y) do
-    [
-      {x+1, y},
-      {x-1, y},
-      {x, y+1},
-      {x, y-1},
-    ]
-  end
 
 
   def has_piece?(t, color, x, y) do

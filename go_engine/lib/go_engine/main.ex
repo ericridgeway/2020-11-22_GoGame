@@ -1,5 +1,5 @@
 defmodule GoEngine.Main do
-  alias GoEngine.{Pieces, Ascii, Group}
+  alias GoEngine.{Pieces, Ascii, Group, Liberties}
 
   defstruct [:size, pieces: Pieces.new()]
 
@@ -29,10 +29,7 @@ defmodule GoEngine.Main do
 
   def liberties(t, x, y) do
     group(t, x, y)
-    |> all_cardinals_for_group()
-    |> reject_out_of_bounds(size(t))
-    |> reject_duplicates()
-    |> only_empty_spaces(pieces(t))
+    |> Liberties.get_list(pieces(t), size(t))
   end
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
@@ -44,26 +41,6 @@ defmodule GoEngine.Main do
       {x, y+1},
       {x, y-1},
     ]
-  end
-
-  defp all_cardinals_for_group(group_list) do
-    Enum.reduce(group_list, [], fn ({x, y}, all_cardinals) ->
-      Enum.concat(cardinals(x, y), all_cardinals)
-    end)
-  end
-
-  defp reject_out_of_bounds(cardinals, size) do
-    Enum.filter(cardinals, fn {x, y} ->
-      x in 1..size and y in 1..size
-    end)
-  end
-
-  defp reject_duplicates(list), do: Enum.uniq(list)
-
-  defp only_empty_spaces(list, pieces) do
-    Enum.filter(list, fn {x, y} ->
-      Pieces.color(pieces, x, y) == nil
-    end)
   end
 
 

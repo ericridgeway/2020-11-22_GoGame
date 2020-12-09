@@ -137,7 +137,17 @@ defmodule GoEngineTest.Main do
 
   describe "Stone groups" do
     test "1 stone group" do
-      # TODO
+      main = [
+        ~w[0 0 0],
+        ~w[w 0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      expected_group = [{1, 2}]
+      group = Main.group(main, 1, 2)
+
+      assert expected_group == group
     end
 
     test "2 stone group" do

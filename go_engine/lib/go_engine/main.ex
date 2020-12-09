@@ -1,5 +1,5 @@
 defmodule GoEngine.Main do
-  alias GoEngine.{Pieces, Ascii}
+  alias GoEngine.{Pieces, Ascii, Group}
 
   defstruct [:size, pieces: Pieces.new()]
 
@@ -25,29 +25,9 @@ defmodule GoEngine.Main do
   end
 
   def group(t, x, y, group \\ []) do
-    group = add_current_to_group(group, x, y)
-    color = Pieces.color(pieces(t), x, y)
-
-    cardinals(x, y)
-    |> Enum.reduce(group, fn ({neighbor_x, neighbor_y}, new_group) ->
-      neighbor_color = Pieces.color(pieces(t), neighbor_x, neighbor_y)
-
-      if color == neighbor_color
-          and not_already_in_group(new_group, neighbor_x, neighbor_y) do
-        group(t, neighbor_x, neighbor_y, new_group)
-      else
-        new_group
-      end
-    end)
+    Group.new(pieces(t), x, y)
   end
 
-  defp add_current_to_group(group, x, y) do
-    [{x, y} | group]
-  end
-
-  defp not_already_in_group(group, x, y) do
-    not({x, y} in group)
-  end
 
   def liberties(t, x, y) do
     group(t, x, y)
@@ -59,7 +39,7 @@ defmodule GoEngine.Main do
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
 
-  defp cardinals(x, y) do
+  def cardinals(x, y) do
     [
       {x+1, y},
       {x-1, y},

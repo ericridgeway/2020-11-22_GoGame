@@ -19,6 +19,10 @@ defmodule GoEngine.Main do
     with :ok <- Pieces.check_x_and_y_in_range(x, y, size(t)) do
       t
       |> update_pieces(Pieces.add(pieces(t), color, x, y))
+      |> capture(opponent(color))
+      # TODO actually this should check that 1 before here and then TRYING to capture self
+      #   is the same. Otherwise it was a suicide move which is disallowed. Can test this later
+      # |> capture(t, color)
     else
       error -> error
     end
@@ -54,6 +58,6 @@ defmodule GoEngine.Main do
 
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 
-#   defp opponent(:black), do: :white
-#   defp opponent(:white), do: :black
+  defp opponent(:black), do: :white
+  defp opponent(:white), do: :black
 end

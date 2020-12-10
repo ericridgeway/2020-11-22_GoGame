@@ -81,9 +81,49 @@ defmodule GoEngineTest.Main do
     end
   end
 
-  # test "After add_piece, check liberties. Remove if 0" do
-  #   TODO
-  # end
+  describe "Run capture after add_piece" do
+    test "Capture after add_piece" do
+      main = [
+        ~w[b w 0],
+        ~w[0 0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+      |> Main.add_piece(:white, 1, 2)
+
+      expected_main = [
+        ~w[0 w 0],
+        ~w[w 0 0],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert main == expected_main
+    end
+
+    test "Playing into 0 liberty spot ok if it captures enemy first" do
+      main = [
+        ~w[0 w 0],
+        ~w[w b 0],
+        ~w[b 0 0],
+      ]
+      |> Main.new_from_ascii()
+      |> Main.add_piece(:black, 1, 1)
+
+      expected_main = [
+        ~w[b w 0],
+        ~w[0 b 0],
+        ~w[b 0 0],
+      ]
+      |> Main.new_from_ascii()
+
+      assert main == expected_main
+    end
+  end
+
+  # test "Playing into 0 liberty spot not ok if just ends in suicide" do
+  #   # TODO think about this one. Might have to wait till the never-repeat-position ko rule
+
 
   # TODO captures counter increases when piece removed
 

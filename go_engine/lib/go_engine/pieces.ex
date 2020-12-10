@@ -20,4 +20,12 @@ defmodule GoEngine.Pieces do
       {:error, :add_piece_outside_range}
     end
   end
+
+  def check_has_piece(t, x, y) do
+    if color(t, x, y) != nil do
+      :ok
+    else
+      {:error, :cant_check_libs_for_blank_space}
+    end
+  end
 end

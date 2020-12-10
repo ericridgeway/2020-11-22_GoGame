@@ -84,4 +84,12 @@ defmodule GoEngineTest.Liberties do
       assert Main.num_liberties(main, 2, 2) == 4
     end
   end
+
+  describe "Misc" do
+    test "Error if try lib check for blank space" do
+      main = Main.new()
+
+      assert Main.liberties(main, 1, 1) == {:error, :cant_check_libs_for_blank_space}
+    end
+  end
 end

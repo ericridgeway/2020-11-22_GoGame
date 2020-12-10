@@ -32,8 +32,6 @@ defmodule GoEngineTest.Main do
     end
   end
 
-  # TODO error if check liberties for blank space
-
   # test "After add_piece, check liberties. Remove if 0" do
   #   TODO
   # end

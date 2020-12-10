@@ -14,7 +14,7 @@ defmodule GoEngine.Pieces do
   end
 
   def list_color(t, target_color) do
-    Enum.filter(t, fn {{x, y}, color} ->
+    Enum.filter(t, fn {_coords, color} ->
       color == target_color
     end)
     |> Enum.map(& elem(&1, 0))

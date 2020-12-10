@@ -12,13 +12,7 @@ defmodule GoEngine.Liberties do
   def capture(main, color) do
     Main.pieces(main)
     |> Pieces.list_color(color)
-    |> Enum.reduce(Main.pieces(main), fn ({x, y}, new_pieces) ->
-      if Main.liberties?(main, x, y) do
-        new_pieces
-      else
-        Pieces.delete(new_pieces, x, y)
-      end
-    end)
+    |> remove_pieces_without_liberties(main)
   end
 
 
@@ -39,6 +33,16 @@ defmodule GoEngine.Liberties do
   defp only_empty_spaces(group, pieces) do
     Enum.filter(group, fn {x, y} ->
       Pieces.color(pieces, x, y) == nil
+    end)
+  end
+
+  defp remove_pieces_without_liberties(pieces_list, main) do
+    Enum.reduce(pieces_list, Main.pieces(main), fn ({x, y}, new_pieces) ->
+      if Main.liberties?(main, x, y) do
+        new_pieces
+      else
+        Pieces.delete(new_pieces, x, y)
+      end
     end)
   end
 end

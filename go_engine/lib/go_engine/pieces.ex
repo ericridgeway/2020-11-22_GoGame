@@ -5,8 +5,19 @@ defmodule GoEngine.Pieces do
     Map.put(t, {x, y}, color)
   end
 
+  def delete(t, x, y) do
+    Map.delete(t, {x, y})
+  end
+
   def color(t, x, y) do
     Map.get(t, {x, y})
+  end
+
+  def list_color(t, target_color) do
+    Enum.filter(t, fn {{x, y}, color} ->
+      color == target_color
+    end)
+    |> Enum.map(& elem(&1, 0))
   end
 
   def has_piece?(t, color, x, y) do

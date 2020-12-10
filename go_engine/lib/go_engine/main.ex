@@ -36,6 +36,17 @@ defmodule GoEngine.Main do
   end
 
   def num_liberties(t, x, y), do: length(liberties(t, x, y))
+  def liberties?(t, x, y), do: num_liberties(t, x, y) > 0
+
+
+  # def capture(t, color) do
+  #   pieces(t)
+  #   |> Pieces.list_color(color)
+
+  #   Enum.reduce(pieces(t), pieces(t), fn () ->
+  #   end)
+  # end
+
 
   def has_piece?(t, color, x, y) do
     Pieces.has_piece?(pieces(t), color, x, y)
@@ -44,7 +55,7 @@ defmodule GoEngine.Main do
   def ascii(t), do: Ascii.ascii_from_main(t)
 
   def size(t), do: t.size
-  defp pieces(t), do: t.pieces
+  def pieces(t), do: t.pieces
 
   defp update_pieces(t, new), do: struct!(t, pieces: new)
 

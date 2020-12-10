@@ -48,37 +48,37 @@ defmodule GoEngineTest.Main do
   end
 
   describe "Captures- Check entire board 1 color at a time (opponent loses stones first)" do
-    # test "No captures if all cur color pieces have liberties" do
-    #   main = [
-    #     ~w[0 w b],
-    #     ~w[0 0 w],
-    #     ~w[0 0 0],
-    #   ]
-    #   |> Main.new_from_ascii()
+    test "No captures if all cur color pieces have liberties" do
+      main = [
+        ~w[0 w b],
+        ~w[0 0 w],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
 
-    #   capture_white = Main.capture(main, :white)
+      capture_white = Main.capture(main, :white)
 
-    #   assert capture_white == main
-    # end
+      assert capture_white == main
+    end
 
-    # test "Capture things that have 0 liberties" do
-    #   main = [
-    #     ~w[0 w b],
-    #     ~w[0 0 w],
-    #     ~w[0 0 0],
-    #   ]
-    #   |> Main.new_from_ascii()
-    #   |> Main.capture(:black)
+    test "Capture things that have 0 liberties" do
+      main = [
+        ~w[0 w b],
+        ~w[0 0 w],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
+      |> Main.capture(:black)
 
-    #   expected_main = [
-    #     ~w[0 w 0],
-    #     ~w[0 0 w],
-    #     ~w[0 0 0],
-    #   ]
-    #   |> Main.new_from_ascii()
+      expected_main = [
+        ~w[0 w 0],
+        ~w[0 0 w],
+        ~w[0 0 0],
+      ]
+      |> Main.new_from_ascii()
 
-    #   assert main == expected_main
-    # end
+      assert main == expected_main
+    end
   end
 
   # test "After add_piece, check liberties. Remove if 0" do

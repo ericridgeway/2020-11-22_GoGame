@@ -39,13 +39,25 @@ defmodule GoEngine.Main do
   def liberties?(t, x, y), do: num_liberties(t, x, y) > 0
 
 
-  # def capture(t, color) do
-  #   pieces(t)
-  #   |> Pieces.list_color(color)
+  # TODO extract to Pieces? Seems to match left indent I think
+  #   hrm except it kind of depends on Main.liberties. I could
+  #   access Liberties directly sideways dependency, but either way
+  #   it's either dependent on Main or Liberties, idk
+  #   Brain hurting, play with later
+  def capture(t, color) do
+    new_pieces =
+      pieces(t)
+      |> Pieces.list_color(color)
+      |> Enum.reduce(pieces(t), fn ({x, y}, new_pieces) ->
+        if liberties?(t, x, y) do
+          new_pieces
+        else
+          Pieces.delete(new_pieces, x, y)
+        end
+      end)
 
-  #   Enum.reduce(pieces(t), pieces(t), fn () ->
-  #   end)
-  # end
+    update_pieces(t, new_pieces)
+  end
 
 
   def has_piece?(t, color, x, y) do

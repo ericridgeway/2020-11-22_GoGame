@@ -1,6 +1,5 @@
 defmodule GoEngine.Liberties do
-  # TODO another tmp Main Cardinals
-  alias GoEngine.{Pieces, Group}
+  alias GoEngine.{Main, Pieces, Group}
 
   def get_list(group, pieces, board_size) do
     group
@@ -8,6 +7,12 @@ defmodule GoEngine.Liberties do
     |> reject_out_of_bounds(board_size)
     |> reject_duplicates()
     |> only_empty_spaces(pieces)
+  end
+
+  def capture(main, color) do
+    Main.pieces(main)
+    |> Pieces.list_color(color)
+    |> remove_pieces_without_liberties(main)
   end
 
 
@@ -28,6 +33,16 @@ defmodule GoEngine.Liberties do
   defp only_empty_spaces(group, pieces) do
     Enum.filter(group, fn {x, y} ->
       Pieces.color(pieces, x, y) == nil
+    end)
+  end
+
+  defp remove_pieces_without_liberties(pieces_list, main) do
+    Enum.reduce(pieces_list, Main.pieces(main), fn ({x, y}, new_pieces) ->
+      if Main.liberties?(main, x, y) do
+        new_pieces
+      else
+        Pieces.delete(new_pieces, x, y)
+      end
     end)
   end
 end

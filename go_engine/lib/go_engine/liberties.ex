@@ -11,7 +11,7 @@ defmodule GoEngine.Liberties do
 
   def capture(main, color) do
     Main.pieces(main)
-    |> Pieces.list_color(color)
+    |> Pieces.just_one_color(color)
     |> remove_pieces_without_liberties(main)
   end
 

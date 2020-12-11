@@ -33,7 +33,7 @@ defmodule GoEngineTest.Main do
         |> Main.add_piece(:white, 2, 2)
 
       expected_list = [{1, 1}, {2, 1}] |> Enum.sort()
-      list = Pieces.list_color(Main.pieces(main), :black) |> Enum.sort()
+      list = Pieces.just_one_color(Main.pieces(main), :black) |> Enum.sort()
 
       assert expected_list == list
     end

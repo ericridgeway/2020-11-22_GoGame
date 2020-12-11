@@ -13,7 +13,7 @@ defmodule GoEngine.Pieces do
     Map.get(t, {x, y})
   end
 
-  def list_color(t, target_color) do
+  def just_one_color(t, target_color) do
     Enum.filter(t, fn {_coords, color} ->
       color == target_color
     end)
